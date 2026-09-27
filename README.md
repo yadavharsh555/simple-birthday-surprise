@@ -67,7 +67,9 @@ const memories = [
 
 ---
 
-## 🚀 How to View & Share
+## 🚀 Live Website & Sharing
 
+- **Live URL (GitHub Pages):** [https://yadavharsh555.github.io/simple-birthday-surprise/](https://yadavharsh555.github.io/simple-birthday-surprise/)
+- **GitHub Repository:** [https://github.com/yadavharsh555/simple-birthday-surprise](https://github.com/yadavharsh555/simple-birthday-surprise)
 - **Locally:** Open `http://localhost:8080` in your web browser or double-click `index.html`.
-- **Sharing on WhatsApp:** Upload the folder to GitHub Pages, Netlify Drop, or Vercel for a free, instant link to send to Drashti!
+- **Sharing on WhatsApp:** You can now copy and send the live link `https://yadavharsh555.github.io/simple-birthday-surprise/` directly to Drashti!
