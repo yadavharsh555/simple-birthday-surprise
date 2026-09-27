@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Happy Birthday Drashti | A Special Surprise</title>
+  <meta name="description" content="A personal, interactive birthday experience handcrafted specifically for Drashti.">
+  <meta name="theme-color" content="#09080e">
+
+  <!-- Google Fonts: Plus Jakarta Sans (Clean Modern Sans), Outfit (Premium Headings), Fira Code (Data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Dynamic Gradient Background -->
+  <div class="ambient-glow" id="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Subtle Desktop Cursor Follower -->
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Floating Atmosphere Layer (Particles, Floating Hearts & Balloons) -->
+  <div class="atmosphere-layer" id="atmosphere-layer" aria-hidden="true"></div>
+
+  <!-- Audio Element -->
+  <audio id="birthday-audio" preload="auto" loop>
+    <source src="audio/birthday.mp3" type="audio/mpeg">
+    <source src="audio/birthday.wav" type="audio/wav">
+  </audio>
+
+  <!-- Floating Navigation & Sound Bar -->
+  <header class="story-navbar" id="story-navbar">
+    <div class="stepper-track" aria-label="Story Progress">
+      <span class="step-indicator active" data-step="1">01</span>
+      <span class="step-indicator" data-step="2">02</span>
+      <span class="step-indicator" data-step="3">03</span>
+      <span class="step-indicator" data-step="4">04</span>
+      <span class="step-indicator" data-step="5">05</span>
+      <span class="step-indicator" data-step="6">06</span>
+      <span class="step-indicator" data-step="7">07</span>
+      <span class="step-indicator" data-step="8">08</span>
+      <span class="step-indicator" data-step="9">09</span>
+    </div>
+
+    <!-- Floating Sound Control -->
+    <button class="sound-pill-btn" id="sound-pill-btn" aria-label="Toggle background music" title="Toggle Music">
+      <span class="sound-icon" id="sound-icon">🔇</span>
+      <span class="sound-label" id="sound-label">Sound</span>
+    </button>
+  </header>
+
+  <!-- Main Narrative Viewport -->
+  <main class="story-viewport" id="story-viewport">
+
+    <!-- ==========================================
+         SCREEN 1 — BIRTHDAY ALERT
+         ========================================== -->
+    <section class="story-screen active" id="screen-1" data-screen="1">
+      <div class="screen-card glass-panel text-center">
+        
+        <div class="protocol-heading-wrap">
+          <span class="protocol-badge">
+            <span class="badge-dot"></span>
+            🚨 BIRTHDAY PROTOCOL 🚨
+          </span>
+        </div>
+
+        <div class="terminal-loader" id="terminal-loader">
+          <p class="loader-line" id="load-line-1">Initializing...</p>
+          <p class="loader-line" id="load-line-2">Checking birthday records...</p>
+          <p class="loader-line" id="load-line-3">Preparing something special...</p>
+        </div>
+
+        <div class="detection-panel" id="detection-panel" style="display: none;">
+          <p class="detected-callout">Birthday detected.</p>
+
+          <div class="animated-info-grid">
+            <div class="info-row">
+              <span class="info-label">SUBJECT</span>
+              <span class="info-value highlight-cyan">DRASHTI</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">OCCASION</span>
+              <span class="info-value highlight-pink">BIRTHDAY</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">STATUS</span>
+              <span class="info-value highlight-green">CELEBRATION READY</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">MEMORIES</span>
+              <span class="info-value highlight-gold">04 AVAILABLE</span>
+            </div>
+          </div>
+
+          <div class="action-footer">
+            <button class="btn-glow-primary" id="btn-screen-1-open">
+              OPEN THE SURPRISE ✨
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 2 — INTERACTIVE VERIFICATION
+         ========================================== -->
+    <section class="story-screen" id="screen-2" data-screen="2">
+      <div class="screen-card glass-panel text-center">
+        
+        <span class="subtle-pre-title">Identity Verification</span>
+        <h2 class="screen-title">Before we continue...</h2>
+        <p class="screen-subtitle">"I need to make sure this surprise reaches the right person."</p>
+
+        <form class="verification-box" id="verification-form" onsubmit="return false;">
+          <div class="input-glow-wrap">
+            <input 
+              type="text" 
+              id="name-input" 
+              class="glow-text-input" 
+              placeholder="Enter your name" 
+              autocomplete="off" 
+              spellcheck="false" 
+              required
+            >
+          </div>
+          <button type="submit" class="btn-glow-primary" id="btn-verify-name">
+            VERIFY ✨
+          </button>
+        </form>
+
+        <div class="verification-alert" id="verification-alert" aria-live="polite"></div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 3 — BIRTHDAY REVEAL & CAKE
+         ========================================== -->
+    <section class="story-screen" id="screen-3" data-screen="3">
+      <div class="screen-card glass-panel text-center">
+
+        <div class="quiet-intro">
+          <p class="intro-line">Okay...</p>
+          <p class="intro-line">now I can finally say it.</p>
+        </div>
+
+        <div class="birthday-reveal-headline">
+          <h1 class="reveal-happy">HAPPY BIRTHDAY</h1>
+          <h2 class="reveal-name">DRASHTI ❤️</h2>
+          <p class="reveal-whisper">"This little surprise is just for you."</p>
+        </div>
+
+        <!-- The Interactive Cake -->
+        <div class="cake-ceremony-container" id="cake-ceremony-container">
+          <div class="interactive-cake" id="interactive-cake" title="Click or tap each candle to blow it out!">
+            
+            <!-- Candles Row -->
+            <div class="cake-candles">
+              <div class="candle" data-candle="1">
+                <div class="flame lit"></div>
+                <div class="spark-puff"></div>
+                <div class="wick"></div>
+                <div class="candle-body"></div>
+              </div>
+              <div class="candle" data-candle="2">
+                <div class="flame lit"></div>
+                <div class="spark-puff"></div>
+                <div class="wick"></div>
+                <div class="candle-body"></div>
+              </div>
+              <div class="candle" data-candle="3">
+                <div class="flame lit"></div>
+                <div class="spark-puff"></div>
+                <div class="wick"></div>
+                <div class="candle-body"></div>
+              </div>
+            </div>
+
+            <!-- Cake Tiers -->
+            <div class="cake-tier tier-top">
+              <div class="frosting-icing"></div>
+            </div>
+            <div class="cake-tier tier-main">
+              <span class="plaque-badge">DRASHTI</span>
+            </div>
+            <div class="cake-platter"></div>
+          </div>
+
+          <div class="cake-prompt-area" id="cake-prompt-area">
+            <h3 class="wish-instruction">Make a wish ✨</h3>
+            <p class="wish-subtext">(Click or tap each candle to extinguish the flames)</p>
+          </div>
+
+          <div class="wish-unlocked-panel" id="wish-unlocked-panel" style="display: none;">
+            <h3 class="wish-unlocked-badge">Wish unlocked. ✨</h3>
+            <button class="btn-glow-primary" id="btn-screen-3-continue">
+              CONTINUE →
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 4 — OUR MEMORIES
+         ========================================== -->
+    <section class="story-screen" id="screen-4" data-screen="4">
+      <div class="screen-card glass-panel memory-stage-card">
+
+        <div class="memory-stage-header text-center">
+          <h2 class="screen-title">📸 A FEW MEMORIES</h2>
+          <p class="screen-subtitle">"Some things are better shown than explained."</p>
+        </div>
+
+        <!-- 4 Memory Stepper Cards -->
+        <div class="memory-stepper-cards" id="memory-stepper-cards">
+          <button class="mem-tab active" data-idx="0" id="mem-card-tab-0">
+            <span class="mem-tab-num">01</span>
+            <span class="mem-tab-status" id="tab-status-0">Viewing</span>
+          </button>
+          <button class="mem-tab dimmed" data-idx="1" id="mem-card-tab-1" disabled>
+            <span class="mem-tab-num">02</span>
+            <span class="mem-tab-status" id="tab-status-1">🔒</span>
+          </button>
+          <button class="mem-tab dimmed" data-idx="2" id="mem-card-tab-2" disabled>
+            <span class="mem-tab-num">03</span>
+            <span class="mem-tab-status" id="tab-status-2">🔒</span>
+          </button>
+          <button class="mem-tab dimmed" data-idx="3" id="mem-card-tab-3" disabled>
+            <span class="mem-tab-num">04</span>
+            <span class="mem-tab-status" id="tab-status-3">🔒</span>
+          </button>
+        </div>
+
+        <!-- Memory Display Card -->
+        <div class="memory-display-window" id="memory-display-window">
+          
+          <div class="memory-image-container" id="memory-image-container" title="Click to view fullscreen in lightbox">
+            <img 
+              src="images/photo1.jpg" 
+              alt="Memory with Drashti" 
+              class="active-memory-image" 
+              id="active-memory-image"
+            >
+            <div class="lightbox-cue">🔍 Click to enlarge</div>
+          </div>
+
+          <div class="memory-caption-footer">
+            <span class="memory-badge-label" id="memory-badge-label">MEMORY 01</span>
+            <p class="memory-caption-text" id="memory-caption-text">A memory worth keeping. ❤️</p>
+          </div>
+
+          <!-- Memory Stepper Actions -->
+          <div class="memory-controls-bar">
+            <button class="btn-ghost" id="btn-memory-prev" disabled>← Previous</button>
+            <span class="memory-step-counter" id="memory-step-counter">01 / 04</span>
+            <button class="btn-glow-primary" id="btn-memory-next">UNLOCK MEMORY 02 →</button>
+          </div>
+
+          <!-- Memory Completion Card (Unlocked after all 4 viewed) -->
+          <div class="memory-completion-box text-center" id="memory-completion-box" style="display: none;">
+            <h3 class="completion-title">Four memories unlocked. ❤️</h3>
+            <p class="completion-lead">"And now for the part I actually wanted to tell you..."</p>
+            <div class="action-footer">
+              <button class="btn-glow-primary" id="btn-screen-4-continue">
+                CONTINUE →
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 5 — FRIENDSHIP
+         ========================================== -->
+    <section class="story-screen" id="screen-5" data-screen="5">
+      <div class="screen-card glass-panel text-center sincere-flow-card">
+        
+        <h2 class="screen-title highlight-gold">SOME PEOPLE BECOME FAMILY ❤️</h2>
+
+        <div class="sincere-prose">
+          <p class="prose-stanza">
+            You're technically my friend...
+          </p>
+          <p class="prose-stanza">
+            but somewhere along the way,
+          </p>
+          <p class="prose-stanza">
+            you became someone I consider family.
+          </p>
+
+          <div class="sister-highlight-card">
+            <h3 class="sister-title">More like a sister. ❤️</h3>
+          </div>
+        </div>
+
+        <div class="action-footer">
+          <button class="btn-glow-primary" id="btn-screen-5-continue">
+            CONTINUE →
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 6 — WHY I MADE THIS
+         ========================================== -->
+    <section class="story-screen" id="screen-6" data-screen="6">
+      <div class="screen-card glass-panel text-center why-flow-card">
+
+        <h2 class="screen-title">There is a reason I made all of this.</h2>
+
+        <div class="why-prose-body">
+          <p class="why-focus-line">I couldn't be there on your birthday.</p>
+          <p class="why-apology-line">And honestly, I'm really sorry about that.</p>
+
+          <div class="subtle-divider"></div>
+
+          <p class="why-detail-line">
+            I didn't want to just send a normal <em>"Happy Birthday ❤️"</em> and leave it at that.
+          </p>
+          <p class="why-detail-line">
+            So I thought... if I couldn't be there in person, I could at least make something specifically for you.
+          </p>
+          <p class="why-detail-line highlight-box">
+            Something you could open, look through, and hopefully smile at.
+          </p>
+        </div>
+
+        <div class="action-footer">
+          <button class="btn-glow-primary" id="btn-screen-6-continue">
+            CONTINUE →
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 7 — THE APOLOGY (INTERACTIVE ENVELOPE)
+         ========================================== -->
+    <section class="story-screen" id="screen-7" data-screen="7">
+      <div class="screen-card glass-panel apology-flow-card text-center">
+
+        <h2 class="apology-heading">🥺 One serious thing...</h2>
+
+        <div class="apology-letter-content">
+          <p class="apology-salutation">Drashti,</p>
+
+          <p class="apology-p">
+            I'm genuinely sorry I couldn't come to your birthday.<br>
+            I really wanted to be there and celebrate with you.
+          </p>
+
+          <p class="apology-p">
+            I know this website can't replace actually being there.<br>
+            But I hope it shows that I was thinking about you.
+          </p>
+
+          <div class="sister-appreciation-box">
+            <p>You're not just a friend to me.</p>
+            <p class="sister-strong">You're like a sister.</p>
+            <p>And I'm genuinely grateful to have you in my life. ❤️</p>
+          </div>
+
+          <p class="apology-p">
+            I'm really sorry I couldn't be there on your special day.<br>
+            I hope you had an amazing birthday.
+          </p>
+        </div>
+
+        <!-- The Glowing Interactive Envelope -->
+        <div class="apology-envelope-area">
+          <h3 class="envelope-cue-text" id="envelope-cue-text">One last thing...</h3>
+
+          <div class="envelope-3d-wrapper" id="envelope-3d-wrapper" role="button" tabindex="0" aria-label="Open personal apology card">
+            <div class="envelope-base"></div>
+            <div class="envelope-letter" id="envelope-letter">
+              <span class="letter-icon">💌</span>
+              <p class="letter-text">"I'm sorry I couldn't be there. ❤️"</p>
+            </div>
+            <div class="envelope-pocket"></div>
+            <div class="envelope-flap" id="envelope-flap"></div>
+            <div class="envelope-heart-seal" id="envelope-heart-seal">❤️</div>
+          </div>
+
+          <div class="apology-delivered-box" id="apology-delivered-box" style="display: none;">
+            <h4 class="delivered-badge">APOLOGY DELIVERED</h4>
+            <p class="delivered-note">Thank you for understanding. ❤️</p>
+          </div>
+        </div>
+
+        <div class="action-footer" id="apology-action-footer" style="display: none;">
+          <button class="btn-glow-primary" id="btn-screen-7-continue">
+            CONTINUE →
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 8 — PERSONAL BIRTHDAY MESSAGE
+         ========================================== -->
+    <section class="story-screen" id="screen-8" data-screen="8">
+      <div class="screen-card glass-panel text-center wishes-flow-card">
+
+        <h1 class="wishes-main-title">🎉 HAPPY BIRTHDAY, DRASHTI 🎉</h1>
+
+        <div class="wishes-content-container">
+          <p class="wishes-intro">I hope this year brings you:</p>
+
+          <div class="wishes-attributes-list">
+            <span>happiness,</span>
+            <span>success,</span>
+            <span>peace,</span>
+            <span>good memories,</span>
+            <span class="gold-sparkle-item">and plenty of reasons to smile.</span>
+          </div>
+
+          <div class="wishes-triad">
+            <p>Keep growing.</p>
+            <p>Keep smiling.</p>
+            <p>Keep being yourself.</p>
+          </div>
+
+          <div class="family-reminder-box">
+            <p class="reminder-lead">And never forget...</p>
+            <p class="reminder-climax">you have someone here who considers you family. ❤️</p>
+          </div>
+        </div>
+
+        <div class="action-footer">
+          <button class="btn-glow-primary" id="btn-screen-8-continue">
+            TO THE CELEBRATION →
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 9 — FINAL CELEBRATION
+         ========================================== -->
+    <section class="story-screen" id="screen-9" data-screen="9">
+      <div class="screen-card glass-panel text-center celebration-stage-card">
+
+        <!-- Pre-Celebration Trigger Button -->
+        <div class="celebration-ready-box" id="celebration-ready-box">
+          <span class="subtle-pre-title">The Grand Finale</span>
+          <h2 class="celebration-prompt-title">Ready for your celebration?</h2>
+          <div class="action-footer">
+            <button class="btn-grand-celebrate" id="btn-start-celebration">
+              🎉 START YOUR BIRTHDAY
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Celebration Display -->
+        <div class="celebration-active-panel" id="celebration-active-panel" style="display: none;">
+          <div class="celebration-halo">✨ 🎂 ✨</div>
+
+          <h1 class="celebration-hero-title">
+            🎂 HAPPY BIRTHDAY DRASHTI ❤️
+          </h1>
+
+          <p class="celebration-lead-message">
+            "This little celebration is just for you."
+          </p>
+
+          <div class="celebration-closing-card">
+            <p>Sorry I couldn't be there...</p>
+            <p class="closing-smile-highlight">but I hope this made you smile. ❤️</p>
+          </div>
+
+          <!-- Final Quiet Moment -->
+          <div class="final-quiet-moment" id="final-quiet-moment">
+            <div class="quiet-separator"></div>
+            <h3 class="quiet-credit">Made specifically for Drashti. ❤️</h3>
+            <p class="quiet-breakdown">
+              Four real memories.<br>
+              One little website.<br>
+              A lot of thought.
+            </p>
+            <h2 class="quiet-final-wish">Happy Birthday. 🎂</h2>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div class="photo-lightbox-modal" id="photo-lightbox-modal" role="dialog" aria-modal="true" style="display: none;">
+    <div class="lightbox-overlay" id="lightbox-overlay"></div>
+    <div class="lightbox-dialog">
+      <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close photo view">✕</button>
+      <div class="lightbox-image-box">
+        <img src="" alt="Fullscreen memory" class="lightbox-img" id="lightbox-img">
+      </div>
+      <div class="lightbox-caption-bar">
+        <p class="lightbox-caption-text" id="lightbox-caption-text"></p>
+        <div class="lightbox-navigation-row">
+          <button class="lightbox-arrow-btn" id="lightbox-prev-btn" aria-label="Previous photo">◀</button>
+          <span class="lightbox-counter" id="lightbox-counter">01 / 04</span>
+          <button class="lightbox-arrow-btn" id="lightbox-next-btn" aria-label="Next photo">▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
